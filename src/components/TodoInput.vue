@@ -3,7 +3,6 @@
       <!-- v-model: data.newTodoItem 변수에 입력된 값 할당 -->
       <!-- v-on:keyup.enter: 입력 후 엔터 입력 시 addTodo() 호출 -->
       <input type="text" v-model="newTodoItem" v-on:keyup.enter="addTodo">
-      <!-- <button v-on:click="addTodo">add</button> -->
       <span class="addContainer" v-on:click="addTodo">
           <i class="fa-solid fa-plus addBtn"></i>
       </span>
@@ -22,8 +21,8 @@ export default {
             if (this.newTodoItem !== '') {
                 // 저장하는 로직
                 console.log(this.newTodoItem);
-                var obj = {completed: false, item: this.newTodoItem}
-                localStorage.setItem(this.newTodoItem, JSON.stringify(obj));
+                this.$emit('addTodoItem', this.newTodoItem);
+
                 this.clearInput();
             }
         },

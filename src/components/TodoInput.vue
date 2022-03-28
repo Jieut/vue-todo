@@ -4,34 +4,49 @@
       <!-- v-on:keyup.enter: 입력 후 엔터 입력 시 addTodo() 호출 -->
       <input type="text" v-model="newTodoItem" v-on:keyup.enter="addTodo">
       <span class="addContainer" v-on:click="addTodo">
-          <i class="fa-solid fa-plus addBtn"></i>
+          <i class="closeModalButton fa-solid fa-plus addBtn"></i>
       </span>
+    <AlertModal :show="showModal" @close="showModal = false">
+      <template #header>
+        <h3>경고!
+            <i class="fa-solid fa-xmark" @click="showModal = false">
+        </i></h3>
+      </template>
+      <template #body>
+        <div>무언가를 입력하세요!</div>
+      </template>
+    </AlertModal>
   </div>
 </template>
 
 <script>
+import AlertModal from "./common/AlertModal.vue"
+
 export default {
     data() {
         return {
-            newTodoItem: ""
+            newTodoItem: "",
+            showModal: false
         }
     },
     methods: {
         addTodo() {
             if (this.newTodoItem !== '') {
                 // 저장하는 로직
-                console.log(this.newTodoItem);
                 this.$emit('addTodoItem', this.newTodoItem);
-
                 this.clearInput();
+            } else {
+                this.showModal = !this.showModal;
             }
         },
         clearInput() {
             // Input 태그 초기화
             this.newTodoItem = '';
         }
+    },
+    components: {
+        AlertModal: AlertModal
     }
-
 }
 </script>
 
@@ -59,6 +74,10 @@ input:focus {
 .addBtn {
     color: white;
     vertical-align: middle;
+}
+.closeModalButton {
+    color: #42b983,
+     
 }
 </style>>
     

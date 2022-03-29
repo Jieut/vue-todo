@@ -2,7 +2,7 @@
   <div>
       <!-- <ul style="padding:0"> -->
         <TransitionGroup name="list" tag="ul" style="padding:0">
-            <li v-for="(todoItem, index) in this.wahaha" v-bind:key="todoItem.item" class="shadow">
+            <li v-for="(todoItem, index) in this.storedTodoItems" v-bind:key="todoItem.item" class="shadow">
             <i class="checkBtn fa-solid fa-check" v-bind:class="{checkBtnCompleted: todoItem.completed}" v-on:click="toggleComplete({todoItem, index})"></i>  
             <span v-bind:class="{textCompleted: todoItem.completed}">{{todoItem.item}}</span>
             <span class="removeBtn" v-on:click="removeTodo({todoItem, index})">
@@ -15,8 +15,7 @@
 </template>
 
 <script>
-// import { mapGetters } from 'vuex'
-import { mapState, mapMutations } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 
 export default {
     methods: {
@@ -37,7 +36,7 @@ export default {
         //     return this.$store.getters.storedTodoItems;
         // }
         /* mapGetters 사용법 1 */
-        // ...mapGetters(['storedTodoItems'])
+        ...mapGetters(['storedTodoItems'])
         /* mapGetters 사용법 2: 컴포넌트 템플릿에서 사용하는 이름과 getters의 이름이 다른 경우 사용 */
         // ...mapGetters({
         //     todoItem: 'storedTodoItems'
@@ -45,9 +44,9 @@ export default {
         /* mapState 사용법 1 */
         // ...mapState(['todoItems'])
         /* mapState 사용법 2 */
-        ...mapState({
-            wahaha: 'todoItems'
-        })
+        // ...mapState({
+        //     wahaha: 'todoItems'
+        // })
 
     }
 }
